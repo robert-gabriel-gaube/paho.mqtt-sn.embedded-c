@@ -296,6 +296,20 @@ void MQTTSNConnectionHandler::handlePingreq(Client* client, MQTTSNPacket* packet
     }
 }
 
+/*
+ *  GWPINGREQ
+ */
+
+void MQTTSNConnectionHandler::handleGWPingreq(Client* client, MQTTSNPacket* packet)
+{
+    /* send GWPINGRESP to the client */
+    MQTTSNPacket* pingResp = new MQTTSNPacket();
+    pingResp->setHeader(MQTTSN_GWPINGRESP);
+    Event* evt = new Event();
+    evt->setClientSendEvent(client, pingResp);
+    _gateway->getClientSendQue()->post(evt);
+}
+
 void MQTTSNConnectionHandler::sendStoredPublish(Client* client)
 {
     MQTTGWPacket* msg = nullptr;

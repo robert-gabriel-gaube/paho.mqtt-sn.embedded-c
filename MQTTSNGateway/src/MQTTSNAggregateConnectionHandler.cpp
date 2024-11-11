@@ -188,6 +188,23 @@ void MQTTSNAggregateConnectionHandler::handlePingreq(Client* client, MQTTSNPacke
     _gateway->getPacketEventQue()->post(evt);
 }
 
+/*
+ *  GWPINGREQ
+ */
+void MQTTSNAggregateConnectionHandler::handleGWPingreq(Client* client, MQTTSNPacket* packet)
+{
+    /* create and send GWPINGRESP to the PacketHandler */
+    client->resetPingRequest();
+
+    MQTTGWPacket* pingresp = new MQTTGWPacket();
+
+    pingresp->setHeader(MQTTSN_GWPINGRESP);
+
+    Event* evt = new Event();
+    evt->setClientRecvEvent(client, pingresp);
+    _gateway->getPacketEventQue()->post(evt);
+}
+
 void MQTTSNAggregateConnectionHandler::sendStoredPublish(Client* client)
 {
     MQTTGWPacket* msg = nullptr;

@@ -42,7 +42,7 @@ void ClientRecvTask::initialize(int argc, char** argv)
 }
 
 /*
- * Receive a packet from clients via sensor netwwork
+ * Receive a packet from clients via sensor network
  * and creats a event to execute the packet handling procedure
  * of MQTTSNPacketHandlingTask.
  */
