@@ -205,6 +205,9 @@ void PacketHandleTask::aggregatePacketHandler(Client*client, MQTTSNPacket* packe
     case MQTTSN_PINGREQ:
         _mqttsnAggrConnection->handlePingreq(client, packet);
         break;
+    case MQTTSN_GWPINGREQ:
+        _mqttsnConnection->handleGWPingreq(client, packet);
+        break;
     case MQTTSN_PUBLISH:
         _mqttsnPublish->handleAggregatePublish(client, packet);
         break;
@@ -297,6 +300,9 @@ void PacketHandleTask::transparentPacketHandler(Client*client, MQTTSNPacket* pac
         break;
     case MQTTSN_PINGREQ:
         _mqttsnConnection->handlePingreq(client, packet);
+        break;
+    case MQTTSN_GWPINGREQ:
+        _mqttsnConnection->handleGWPingreq(client, packet);
         break;
     case MQTTSN_PUBLISH:
         _mqttsnPublish->handlePublish(client, packet);
